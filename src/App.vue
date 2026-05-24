@@ -1,9 +1,9 @@
 <template>
   <main class="game-root">
     <section v-if="stage === 'home'" class="home-panel">
-      <p class="eyebrow">RETRO RUN & GUN · SVG IMAGE FINAL</p>
-      <h1>钢铁突击 图片最终版</h1>
-      <p>复古横版通关射击原型：跑动、跳跃、射击、消灭敌人，最终击败 Boss 通关。</p>
+      <p class="eyebrow">RETRO RUN & GUN · ACCEPTANCE BUILD</p>
+      <h1>钢铁突击 · 通关版</h1>
+      <p>横版通关射击游戏：跑动、跳跃、射击、敌人、炮台、飞行器、Boss、爆炸和通关结算。</p>
       <button class="primary-btn" @click="startGame">开始闯关</button>
     </section>
 
@@ -25,7 +25,7 @@
         <strong>操作</strong>
         <span>A/D 或方向键：移动</span>
         <span>W/K/↑：跳跃</span>
-        <span>J/X/Ctrl：射击</span>
+        <span>J/X/Ctrl/空格：射击</span>
       </div>
 
       <button class="exit-btn" @click="backHome">退出</button>
@@ -35,7 +35,7 @@
 
 <script setup lang="ts">
 import { nextTick, onBeforeUnmount, reactive, ref } from 'vue';
-import { RunGunGame } from './game/VisualGame';
+import { RunGunGame } from './game/CleanRunGun';
 
 const stage = ref<'home' | 'game'>('home');
 const canvasRef = ref<HTMLCanvasElement | null>(null);
