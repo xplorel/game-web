@@ -1,8 +1,8 @@
 <template>
   <main class="game-root">
     <section v-if="stage === 'home'" class="home-panel">
-      <p class="eyebrow">RETRO RUN & GUN · V3</p>
-      <h1>钢铁突击 V3</h1>
+      <p class="eyebrow">RETRO RUN & GUN · IMAGE</p>
+      <h1>钢铁突击 IMAGE</h1>
       <p>复古横版通关射击原型：跑动、跳跃、射击、消灭敌人，最终击败 Boss 通关。</p>
       <button class="primary-btn" @click="startGame">开始闯关</button>
     </section>
@@ -35,7 +35,7 @@
 
 <script setup lang="ts">
 import { nextTick, onBeforeUnmount, reactive, ref } from 'vue';
-import { RunGunGame } from './game/VisualGameV3';
+import { RunGunGame } from './game/VisualGameImage';
 
 const stage = ref<'home' | 'game'>('home');
 const canvasRef = ref<HTMLCanvasElement | null>(null);
