@@ -2,7 +2,7 @@
   <main class="game-root">
     <section v-if="stage === 'home'" class="home-panel">
       <p class="eyebrow">3D WEB ADVENTURE</p>
-      <h1>星界漫游者</h1>
+      <h1>星界漫游者 3D</h1>
       <p>这是一个 Three.js 3D 网页游戏原型。进入场景后，你可以控制角色在地图中移动，镜头会自动跟随。</p>
       <button class="primary-btn" @click="startGame">进入 3D 世界</button>
     </section>
