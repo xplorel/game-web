@@ -16,3 +16,13 @@ npm run dev
 ```bash
 npm run build
 ```
+
+## 在线预览
+
+GitHub Pages 地址：
+
+```text
+https://xplorel.github.io/game-web/
+```
+
+如果首次打开失败，请在仓库 Settings -> Pages 中确认 Source 使用 GitHub Actions。
