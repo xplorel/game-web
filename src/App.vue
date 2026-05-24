@@ -1,48 +1,66 @@
 <template>
   <main class="game-root">
     <section v-if="stage === 'home'" class="home-panel">
-      <p class="eyebrow">3D WEB ADVENTURE</p>
-      <h1>星界漫游者 3D</h1>
-      <p>这是一个 Three.js 3D 网页游戏原型。进入场景后，你可以控制角色在地图中移动，镜头会自动跟随。</p>
-      <button class="primary-btn" @click="startGame">进入 3D 世界</button>
+      <p class="eyebrow">RETRO RUN & GUN</p>
+      <h1>钢铁突击</h1>
+      <p>复古横版通关射击原型：跑动、跳跃、射击、消灭敌人，最终击败 Boss 通关。</p>
+      <button class="primary-btn" @click="startGame">开始闯关</button>
     </section>
 
-    <section v-else class="world-screen">
-      <div ref="worldRef" class="world-canvas"></div>
+    <section v-else class="run-screen">
+      <canvas ref="canvasRef" class="run-canvas" width="960" height="540"></canvas>
+
       <div class="hud top-left">
         <p class="eyebrow">MISSION</p>
-        <strong>寻找发光传送门</strong>
-        <span>{{ message }}</span>
+        <strong>{{ status.message }}</strong>
       </div>
+
+      <div class="hud top-right">
+        <span>HP：{{ status.hp }}</span>
+        <span>生命：{{ status.lives }}</span>
+        <span>分数：{{ status.score }}</span>
+      </div>
+
       <div class="hud bottom-left">
         <strong>操作</strong>
-        <span>WASD / 方向键移动</span>
-        <span>按住 Shift 加速</span>
+        <span>A/D 或方向键：移动</span>
+        <span>W/K/↑：跳跃</span>
+        <span>J/X/Ctrl：射击</span>
       </div>
+
       <button class="exit-btn" @click="backHome">退出</button>
     </section>
   </main>
 </template>
 
 <script setup lang="ts">
-import { nextTick, onBeforeUnmount, ref } from 'vue';
-import { ThreeAdventure } from './game/ThreeAdventure';
+import { nextTick, onBeforeUnmount, reactive, ref } from 'vue';
+import { RunGunGame } from './game/RunGunGame';
 
-const stage = ref<'home' | 'world'>('home');
-const worldRef = ref<HTMLElement | null>(null);
-const message = ref('准备进入星界。');
-let game: ThreeAdventure | null = null;
+const stage = ref<'home' | 'game'>('home');
+const canvasRef = ref<HTMLCanvasElement | null>(null);
+const status = reactive({
+  hp: 100,
+  lives: 3,
+  score: 0,
+  message: '准备突击。',
+  state: 'playing' as 'playing' | 'win' | 'lose',
+});
+let game: RunGunGame | null = null;
 
 async function startGame() {
-  stage.value = 'world';
-  message.value = '加载 3D 场景中...';
+  stage.value = 'game';
   await nextTick();
 
-  if (!worldRef.value) return;
+  if (!canvasRef.value) return;
   game?.destroy();
-  game = new ThreeAdventure(worldRef.value, {
-    onMessage: text => {
-      message.value = text;
+  game = new RunGunGame(canvasRef.value, {
+    onStatus: value => {
+      status.hp = value.hp;
+      status.lives = value.lives;
+      status.score = value.score;
+      status.message = value.message;
+      status.state = value.state;
     },
   });
   game.start();
@@ -52,7 +70,6 @@ function backHome() {
   game?.destroy();
   game = null;
   stage.value = 'home';
-  message.value = '准备进入星界。';
 }
 
 onBeforeUnmount(() => {
