@@ -35,7 +35,7 @@
 
 <script setup lang="ts">
 import { nextTick, onBeforeUnmount, reactive, ref } from 'vue';
-import { RunGunGame } from './game/VisualGame';
+import { RunGunGame } from './game/VisualGameV3';
 
 const stage = ref<'home' | 'game'>('home');
 const canvasRef = ref<HTMLCanvasElement | null>(null);
